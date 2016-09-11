@@ -3,6 +3,7 @@ require 'json'
 
 require 'clubhouse/version'
 require 'clubhouse/client'
+require 'clubhouse/base_resource'
 
 module Clubhouse
 
