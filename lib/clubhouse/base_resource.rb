@@ -1,14 +1,22 @@
 class BaseResource
+  attr_writer :client
+
   class << self
     attr_reader :endpoint
 
     def resource(name)
       @endpoint = name
     end
+
+    def client
+      Clubhouse.default_client
+    end
   end
 
   def self.attributes(*keys)
     class_eval do
+      define_method(:attribute_keys) { keys }
+
       keys.each do |key|
         define_method(:"#{key}")  { instance_variable_get("@#{key}") }
         define_method(:"#{key}=") {|v| instance_variable_set("@#{key}", v) }
@@ -29,6 +37,16 @@ class BaseResource
       define_method :create_attributes do
         keys.reduce({}) { |hash, k| hash.merge(k => instance_variable_get("@#{k}")) }
       end
+    end
+  end
+
+  def client
+    @client ||= Clubhouse.default_client
+  end
+
+  def update_object_from_payload(payload)
+    attribute_keys.each do |k|
+      self.send("#{k}=", payload[k.to_s])
     end
   end
 end
