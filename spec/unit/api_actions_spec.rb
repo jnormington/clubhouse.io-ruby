@@ -14,11 +14,13 @@ module Clubhouse
 
     describe '#find' do
       let(:story) { subject.find(:story, 1) }
+
       it 'calls get and returns resource object' do
         expect(subject).to receive(:get).with('stories/1').and_return({"name" => "Story 1", "id" => 1})
         expect(story).to be_instance_of Story
-        expect(story.name).to eq 'Story 1'
 
+        expect(story.id).to eq 1
+        expect(story.name).to eq 'Story 1'
       end
 
       it 'raises an error when resource is unknown' do
@@ -27,8 +29,7 @@ module Clubhouse
     end
 
     describe '#resource' do
-
-      it 'returns object matching the label' do
+      it 'returns class name and endpoint as keys mapping to the class' do
         expect(subject.known_resources).to eq({
           stories: Clubhouse::Story,
           story: Clubhouse::Story
