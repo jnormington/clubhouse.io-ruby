@@ -5,5 +5,12 @@ require 'clubhouse/version'
 require 'clubhouse/client'
 
 module Clubhouse
-  # Your code goes here...
+
+  class << self
+    attr_accessor :default_client
+
+    def configure
+      yield self if block_given?
+    end
+  end
 end
