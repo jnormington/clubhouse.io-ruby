@@ -53,5 +53,7 @@ class BaseResource
     attribute_keys.each do |k|
       self.instance_variable_set("@#{k}", payload[k.to_s])
     end
+
+    self
   end
 end
