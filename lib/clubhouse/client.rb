@@ -5,6 +5,8 @@ module Clubhouse
   class UnexpectedError < StandardError; end
 
   class Client
+    include APIActions
+
     API_VERSION='v1'.freeze
 
     def initialize(token)

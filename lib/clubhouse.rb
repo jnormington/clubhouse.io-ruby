@@ -2,8 +2,12 @@ require 'net/http'
 require 'json'
 
 require 'clubhouse/version'
+require 'clubhouse/ext/string'
+require 'clubhouse/api_actions'
 require 'clubhouse/client'
 require 'clubhouse/base_resource'
+
+require 'clubhouse/story'
 
 module Clubhouse
 
