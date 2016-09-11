@@ -3,7 +3,7 @@ require 'spec_helper'
 class LabelTest < BaseResource
   resource 'labels'
 
-  attributes :name, :project_id, :story_id, :updated_at
+  attributes :id, :name, :project_id, :story_id, :updated_at, readonly: :id
   attributes_for_update :name, :updated_at
   attributes_for_create :name, :project_id
 end
@@ -25,11 +25,19 @@ module Clubhouse
         expect(subject.name).to eq 'Bugfix'
         expect(subject.project_id).to eq '123-123'
       end
+
+      it 'doesnt create writer methods for readonly attributes' do
+        expect{ subject.id = '1234' }.to raise_error NoMethodError
+        expect(subject.id).to be_nil
+
+        subject.instance_variable_set("@id", '123-21')
+        expect(subject.id).to eq '123-21'
+      end
     end
 
     describe '#attributes_keys' do
       it 'returns the keys from registered_attributes' do
-        expect(subject.attribute_keys).to eq([:name, :project_id, :story_id, :updated_at])
+        expect(subject.attribute_keys).to eq([:id, :name, :project_id, :story_id, :updated_at])
       end
     end
 
