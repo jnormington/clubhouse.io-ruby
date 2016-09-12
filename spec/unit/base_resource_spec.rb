@@ -103,6 +103,52 @@ module Clubhouse
         expect(subject.project_id).to eq '123-123-234'
         expect(subject.story_id).to eq '321-123'
       end
+
+      describe '.find' do
+        let(:client) { Client.new('tok123') }
+
+        before do
+          allow(Clubhouse).to receive(:default_client).and_return(client)
+          subject.name = 'Label Test'
+        end
+
+        it 'calls find on client' do
+          expect(client).to receive(:find).with(LabelTest, 'labels', '123')
+
+          LabelTest.find('123')
+        end
+      end
+
+      describe '#save!' do
+        let(:client) { Client.new('tok123') }
+
+        before do
+          allow(Clubhouse).to receive(:default_client).and_return(client)
+          subject.name = 'Label Test'
+        end
+
+        context 'when id exists' do
+          let(:body) { {name: 'Label Test', updated_at: nil} }
+
+          it 'calls put on client with update_attributes' do
+            allow(subject).to receive(:id).and_return('123-123')
+            expect(client).to receive(:put).once.with('labels/123-123', body).and_return({}).once
+
+            subject.save!
+          end
+        end
+
+        context 'when id doesnt exist' do
+          let(:body) { {name: 'Label Test', project_id: nil} }
+
+          it 'calls post on client with create_attributes' do
+            allow(subject).to receive(:id).and_return(nil)
+            expect(client).to receive(:post).with('labels', body).and_return({}).once
+
+            subject.save!
+          end
+        end
+      end
     end
   end
 end

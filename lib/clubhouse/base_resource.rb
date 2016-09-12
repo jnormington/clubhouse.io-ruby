@@ -11,6 +11,10 @@ class BaseResource
     def client
       Clubhouse.default_client
     end
+
+    def find(id)
+      client.find(self, self.endpoint, id)
+    end
   end
 
   def self.attributes(*keys, **opts)
@@ -55,5 +59,14 @@ class BaseResource
     end
 
     self
+  end
+
+  def save!
+    if id
+      client.put("#{self.class.endpoint}/#{id}", update_attributes)
+    else
+      client.post(self.class.endpoint, create_attributes)
+    end
+
   end
 end
