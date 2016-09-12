@@ -67,7 +67,7 @@ module Clubhouse
 
       it 'builds and makes request' do
         expect(Net::HTTP::Post).to receive(:new).with(uri).and_return(req)
-        expect(req).to receive(:set_form_data).with(body.to_json)
+        expect(req).to receive(:body=).with(body.to_json)
         expect(subject).to receive(:do_request).with(req).once
 
         subject.post('labels', body)
@@ -81,7 +81,7 @@ module Clubhouse
 
       it 'builds and makes request' do
         expect(Net::HTTP::Put).to receive(:new).with(uri).and_return(req)
-        expect(req).to receive(:set_form_data).with(body.to_json)
+        expect(req).to receive(:body=).with(body.to_json)
         expect(subject).to receive(:do_request).with(req).once
 
         subject.put('labels/1', body)
