@@ -132,7 +132,9 @@ module Clubhouse
 
           it 'calls put on client with update_attributes' do
             allow(subject).to receive(:id).and_return('123-123')
-            expect(client).to receive(:put).once.with('labels/123-123', body).and_return({}).once
+            expect(client).to receive(:put).once.with('labels/123-123', body).and_return({ 'name' => 'Rewrite'}).once
+            expect(subject).to receive(:update_object_from_payload).with({'name' => 'Rewrite'}).once
+
 
             subject.save!
           end
@@ -143,7 +145,8 @@ module Clubhouse
 
           it 'calls post on client with create_attributes' do
             allow(subject).to receive(:id).and_return(nil)
-            expect(client).to receive(:post).with('labels', body).and_return({}).once
+            expect(client).to receive(:post).with('labels', body).and_return({'id' => 12}).once
+            expect(subject).to receive(:update_object_from_payload).with({'id' => 12}).once
 
             subject.save!
           end

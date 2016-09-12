@@ -62,11 +62,12 @@ class BaseResource
   end
 
   def save!
-    if id
+    payload = if id
       client.put("#{self.class.endpoint}/#{id}", update_attributes)
     else
       client.post(self.class.endpoint, create_attributes)
     end
 
+    update_object_from_payload(payload)
   end
 end
