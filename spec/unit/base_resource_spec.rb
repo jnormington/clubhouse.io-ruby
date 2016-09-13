@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-class LabelTest < BaseResource
+class LabelTest < Clubhouse::BaseResource
   resource 'labels'
 
   attributes :id, :name, :project_id, :story_id, :updated_at, readonly: :id
@@ -15,6 +15,26 @@ module Clubhouse
     describe '.endpoint' do
       it 'returns the set resource' do
         expect(subject.class.endpoint).to eq 'labels'
+      end
+    end
+
+    describe '#initialize' do
+      it 'assigns values from symbol keys hash' do
+        subject = LabelTest.new(name: 'Test', project_id: 1234)
+
+        expect(subject.name).to eq 'Test'
+        expect(subject.project_id).to eq 1234
+      end
+
+      it 'assigns values from string keys hash' do
+        subject = LabelTest.new('name' => 'Test', 'project_id' => 1234)
+
+        expect(subject.name).to eq 'Test'
+        expect(subject.project_id).to eq 1234
+      end
+
+      it 'raises an error when no matching method' do
+        expect{ LabelTest.new(id: 123) }.to raise_error InvalidKeyAssignment
       end
     end
 
