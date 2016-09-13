@@ -50,7 +50,9 @@ module Clubhouse
     def self.attributes_for_update(*keys)
       class_eval do
         define_method :update_attributes do
-          keys.reduce({}) { |hash, k| hash.merge(k => instance_variable_get("@#{k}")) }
+          keys.reduce({}) do |h, k|
+            h.merge(k => instance_variable_get("@#{k}"))
+          end.reject{|k,v| v.nil?}
         end
       end
     end
@@ -58,7 +60,9 @@ module Clubhouse
     def self.attributes_for_create(*keys)
       class_eval do
         define_method :create_attributes do
-          keys.reduce({}) { |hash, k| hash.merge(k => instance_variable_get("@#{k}")) }
+          keys.reduce({}) do |h, k|
+            h.merge(k => instance_variable_get("@#{k}"))
+          end.reject{|k,v| v.nil?}
         end
       end
     end

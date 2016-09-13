@@ -10,7 +10,7 @@ end
 
 module Clubhouse
   describe BaseResource do
-    subject { LabelTest.new }
+    subject { LabelTest.new(name: 'Test') }
 
     describe '.endpoint' do
       it 'returns the set resource' do
@@ -62,19 +62,19 @@ module Clubhouse
     end
 
     describe '.create_attributes' do
-      it 'returns attributes only for create' do
-        expect(subject.create_attributes).to eq(name: nil, project_id: nil)
+      it 'returns attributes only for create that are not nil' do
+        expect(subject.create_attributes).to eq(name: 'Test')
         subject.name = 'UrgentFix'
         subject.project_id = '123'
-        expect(subject.create_attributes).to eq(name: 'UrgentFix', project_id: '123')
+        expect(subject.create_attributes).to eq({name: 'UrgentFix', project_id: '123'})
       end
     end
 
     describe '.update_attributes' do
       it 'returns attributes only for update' do
-        expect(subject.update_attributes).to eq(name: nil, updated_at: nil)
+        expect(subject.update_attributes).to eq(name: 'Test')
         subject.name = 'UrgentFix'
-        expect(subject.update_attributes).to eq(name: 'UrgentFix', updated_at: nil)
+        expect(subject.update_attributes).to eq(name: 'UrgentFix')
       end
     end
 
@@ -104,6 +104,8 @@ module Clubhouse
     end
 
     describe '#update_object_from_payload' do
+      subject { LabelTest.new }
+
       let(:payload) do
         {
           'name' => 'My Label Name',
@@ -167,7 +169,7 @@ module Clubhouse
         end
 
         context 'when id exists' do
-          let(:body) { {name: 'Label Test', updated_at: nil} }
+          let(:body) { {name: 'Label Test'} }
 
           it 'calls put on client with update_attributes' do
             allow(subject).to receive(:id).and_return('123-123')
@@ -180,7 +182,7 @@ module Clubhouse
         end
 
         context 'when id doesnt exist' do
-          let(:body) { {name: 'Label Test', project_id: nil} }
+          let(:body) { {name: 'Label Test'} }
 
           it 'calls post on client with create_attributes' do
             allow(subject).to receive(:id).and_return(nil)
