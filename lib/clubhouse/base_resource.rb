@@ -61,6 +61,11 @@ class BaseResource
     self
   end
 
+  def refresh!
+    payload = self.class.find(id)
+    update_object_from_payload(payload)
+  end
+
   def save!
     payload = if id
       client.put("#{self.class.endpoint}/#{id}", update_attributes)

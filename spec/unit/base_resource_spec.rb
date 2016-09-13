@@ -119,6 +119,20 @@ module Clubhouse
         end
       end
 
+      describe '#refresh!' do
+        let(:client) { Client.new('tok123') }
+        let(:payload) { { 'name' => 'Rewrite'} }
+
+        it 'calls put on client with update_attributes' do
+          allow(subject).to receive(:id).and_return('123-123')
+          allow(subject).to receive(:class).and_return(LabelTest)
+          expect(LabelTest).to receive(:find).with('123-123').and_return(payload).once
+          expect(subject).to receive(:update_object_from_payload).with(payload).once
+
+          subject.refresh!
+        end
+      end
+
       describe '#save!' do
         let(:client) { Client.new('tok123') }
 
