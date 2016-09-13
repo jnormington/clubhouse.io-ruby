@@ -1,5 +1,6 @@
 module Clubhouse
   class InvalidKeyAssignment < StandardError; end
+  class ClientNotSetup < StandardError; end
 
   class BaseResource
     attr_writer :client
@@ -80,6 +81,8 @@ module Clubhouse
     end
 
     def save!
+      raise ClientNotSetup, "A default client or instance client is not setup" unless client
+
       payload = if id
                   client.put("#{self.class.endpoint}/#{id}", update_attributes)
                 else

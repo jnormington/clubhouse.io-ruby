@@ -161,6 +161,11 @@ module Clubhouse
           subject.name = 'Label Test'
         end
 
+        it 'raises an error when no client is setup' do
+          allow(Clubhouse).to receive(:default_client).and_return(nil)
+          expect{ subject.save! }.to raise_error ClientNotSetup, "A default client or instance client is not setup"
+        end
+
         context 'when id exists' do
           let(:body) { {name: 'Label Test', updated_at: nil} }
 
