@@ -11,4 +11,13 @@ module WebmocksHelper
     body = File.read(fixture_path("#{response_body}.json"))
     stub_request(:post, url_for(:stories)).with(body: request_body).and_return({status: 200, body: body})
   end
+
+  def stub_update_story_with(id, request_body, response_body)
+    body = File.read(fixture_path("#{response_body}.json"))
+    stub_request(:put, url_for("stories/#{id}")).with(body: request_body).and_return({status: 200, body: body})
+  end
+
+  def stub_error_response_for(verb, path, resp)
+    stub_request(verb, url_for(path)).and_return(status: 400, body: resp)
+  end
 end
