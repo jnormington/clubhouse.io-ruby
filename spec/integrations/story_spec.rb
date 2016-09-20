@@ -5,7 +5,7 @@ module Clubhouse
     describe 'creating' do
       let(:story) {  Story.new(basic_story) }
 
-      before { stub_create_story_with(basic_story.to_json, :basic_story) }
+      before { stub_create_resource_with(:stories, basic_story.to_json, :basic_story) }
 
       it 'saves and stores the attributes' do
         story.save
@@ -38,8 +38,8 @@ module Clubhouse
       end
 
       before do
-        stub_create_story_with(basic_story.to_json, :basic_story)
-        stub_update_story_with(694, request_body.to_json.gsub('\n', ''), :update_basic_story)
+        stub_create_resource_with(:stories, basic_story.to_json, :basic_story)
+        stub_update_resource_with(:stories, 694, request_body.to_json.gsub('\n', ''), :update_basic_story)
       end
 
       it 'sends an update and updates the object' do
@@ -76,13 +76,12 @@ module Clubhouse
     describe 'reload' do
       let(:story) { Story.find(694) }
 
-      before { stub_get_story_with(694, :basic_story) }
+      before { stub_get_resource_with(:stories, 694, :basic_story) }
 
       it 'reloads the story object' do
         expect(story.story_type).to eq 'feature'
 
-        WebMock.reset!
-        stub_get_story_with(694, :update_basic_story)
+        stub_get_resource_with(:stories, 694, :update_basic_story)
         story.reload
 
         expect(story.story_type).to eq 'bug'
