@@ -141,6 +141,17 @@ module Clubhouse
         end
       end
 
+      describe '.delete' do
+        let(:client) { Client.new('tok123') }
+
+        before { allow(Clubhouse).to receive(:default_client).and_return(client) }
+
+        it 'calls delete on client with id' do
+          expect(client).to receive(:delete).with('labels/123').and_return(true).once
+          LabelTest.delete(123)
+        end
+      end
+
       describe '#refresh!' do
         let(:client) { Client.new('tok123') }
         let(:payload) { { 'name' => 'Rewrite'} }
@@ -173,7 +184,7 @@ module Clubhouse
 
           it 'calls put on client with update_attributes' do
             allow(subject).to receive(:id).and_return('123-123')
-            expect(client).to receive(:put).once.with('labels/123-123', body).and_return({ 'name' => 'Rewrite'}).once
+            expect(client).to receive(:put).with('labels/123-123', body).and_return({ 'name' => 'Rewrite'}).once
             expect(subject).to receive(:update_object_from_payload).with({'name' => 'Rewrite'}).once
 
 

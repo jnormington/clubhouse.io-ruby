@@ -19,6 +19,10 @@ module Clubhouse
       def find(id)
         client.find(self, self.endpoint, id)
       end
+
+      def delete(id)
+        client.delete("#{self.endpoint}/#{id}")
+      end
     end
 
     def initialize(attr = {})
