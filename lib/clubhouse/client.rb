@@ -5,6 +5,8 @@ module Clubhouse
   class UnexpectedError < StandardError; end
 
   class Client
+    include APIActions
+
     API_VERSION='v1'.freeze
 
     def initialize(token)
@@ -27,14 +29,16 @@ module Clubhouse
 
     def post(resource, body = {})
       req = Net::HTTP::Post.new(build_uri(resource))
-      req.set_form_data(body.to_json)
+      req['Content-Type'] = 'application/json'
+      req.body = body.to_json
 
       do_request(req)
     end
 
     def put(resource, body = {})
       req = Net::HTTP::Put.new(build_uri(resource))
-      req.set_form_data(body.to_json)
+      req['Content-Type'] = 'application/json'
+      req.body = body.to_json
 
       do_request(req)
     end
