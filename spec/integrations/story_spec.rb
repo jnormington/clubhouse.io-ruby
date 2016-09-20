@@ -5,10 +5,10 @@ module Clubhouse
     describe 'creating' do
       let(:story) {  Story.new(basic_story) }
 
-      before { stub_create_story_with(basic_story.to_json, :create_basic_story) }
+      before { stub_create_story_with(basic_story.to_json, :basic_story) }
 
       it 'saves and stores the attributes' do
-        story.save!
+        story.save
         expect(story.id).to eq 694
         expect(story.story_type).to eq 'feature'
         expect(story.requested_by_id).to eq '22c22ddd-ad22-2222-2c2d-222d2222cc2d'
@@ -38,17 +38,17 @@ module Clubhouse
       end
 
       before do
-        stub_create_story_with(basic_story.to_json, :create_basic_story)
+        stub_create_story_with(basic_story.to_json, :basic_story)
         stub_update_story_with(694, request_body.to_json.gsub('\n', ''), :update_basic_story)
       end
 
       it 'sends an update and updates the object' do
-        story.save!
+        story.save
         expect(story.updated_at).to eq '2016-09-14T21:39:55Z'
 
         story.story_type = 'bug'
         story.description = 'Fix it now'
-        story.save!
+        story.save
 
         expect(story.updated_at).to eq '2016-09-15T21:39:55Z'
         expect(story.story_type).to eq 'bug'
@@ -68,8 +68,24 @@ module Clubhouse
       before { stub_error_response_for(:post, :stories, error.to_json) }
 
       it 'raises an error with the body content' do
-        expect{ story.save! }.to raise_error(Clubhouse::BadRequestError, error.to_json)
+        expect{ story.save }.to raise_error(Clubhouse::BadRequestError, error.to_json)
         expect(story.name).not_to be_nil
+      end
+    end
+
+    describe 'reload' do
+      let(:story) { Story.find(694) }
+
+      before { stub_get_story_with(694, :basic_story) }
+
+      it 'reloads the story object' do
+        expect(story.story_type).to eq 'feature'
+
+        WebMock.reset!
+        stub_get_story_with(694, :update_basic_story)
+        story.reload
+
+        expect(story.story_type).to eq 'bug'
       end
     end
   end

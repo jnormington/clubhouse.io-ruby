@@ -125,83 +125,83 @@ module Clubhouse
         expect(subject.project_id).to eq '123-123-234'
         expect(subject.story_id).to eq '321-123'
       end
+    end
 
-      describe '.find' do
-        let(:client) { Client.new('tok123') }
+    describe '.find' do
+      let(:client) { Client.new('tok123') }
 
-        before do
-          allow(Clubhouse).to receive(:default_client).and_return(client)
-          subject.name = 'Label Test'
-        end
-
-        it 'calls find on client' do
-          expect(client).to receive(:find).with(LabelTest, 'labels', '123')
-
-          LabelTest.find('123')
-        end
+      before do
+        allow(Clubhouse).to receive(:default_client).and_return(client)
+        subject.name = 'Label Test'
       end
 
-      describe '.delete' do
-        let(:client) { Client.new('tok123') }
+      it 'calls find on client' do
+        expect(client).to receive(:find).with(LabelTest, 'labels', '123')
 
-        before { allow(Clubhouse).to receive(:default_client).and_return(client) }
+        LabelTest.find('123')
+      end
+    end
 
-        it 'calls delete on client with id' do
-          expect(client).to receive(:delete).with('labels/123').and_return(true).once
-          LabelTest.delete(123)
-        end
+    describe '.delete' do
+      let(:client) { Client.new('tok123') }
+
+      before { allow(Clubhouse).to receive(:default_client).and_return(client) }
+
+      it 'calls delete on client with id' do
+        expect(client).to receive(:delete).with('labels/123').and_return(true).once
+        LabelTest.delete(123)
+      end
+    end
+
+    describe '#reload' do
+      let(:client) { Client.new('tok123') }
+      let(:payload) { { 'name' => 'Rewrite'} }
+
+      it 'calls put on client with update_attributes' do
+        allow(Clubhouse).to receive(:default_client).and_return(client)
+        allow(subject).to receive(:id).and_return('123-123')
+        allow(subject).to receive(:class).and_return(LabelTest)
+        expect(client).to receive(:get).with('labels/123-123').and_return(payload).once
+
+        subject.reload
+      end
+    end
+
+    describe '#save!' do
+      let(:client) { Client.new('tok123') }
+
+      before do
+        allow(Clubhouse).to receive(:default_client).and_return(client)
+        subject.name = 'Label Test'
       end
 
-      describe '#refresh!' do
-        let(:client) { Client.new('tok123') }
-        let(:payload) { { 'name' => 'Rewrite'} }
+      it 'raises an error when no client is setup' do
+        allow(Clubhouse).to receive(:default_client).and_return(nil)
+        expect{ subject.save }.to raise_error ClientNotSetup, "A default client or instance client is not setup"
+      end
+
+      context 'when id exists' do
+        let(:body) { {name: 'Label Test'} }
 
         it 'calls put on client with update_attributes' do
           allow(subject).to receive(:id).and_return('123-123')
-          allow(subject).to receive(:class).and_return(LabelTest)
-          expect(LabelTest).to receive(:find).with('123-123').and_return(payload).once
-          expect(subject).to receive(:update_object_from_payload).with(payload).once
+          expect(client).to receive(:put).with('labels/123-123', body).and_return({ 'name' => 'Rewrite'}).once
+          expect(subject).to receive(:update_object_from_payload).with({'name' => 'Rewrite'}).once
 
-          subject.refresh!
+
+          subject.save
         end
       end
 
-      describe '#save!' do
-        let(:client) { Client.new('tok123') }
+      context 'when id doesnt exist' do
+        let(:body) { {name: 'Label Test'} }
 
-        before do
-          allow(Clubhouse).to receive(:default_client).and_return(client)
-          subject.name = 'Label Test'
-        end
+        it 'calls post on client with create_attributes' do
+          allow(subject).to receive(:id).and_return(nil)
+          expect(client).to receive(:post).with('labels', body).and_return({'id' => 12}).once
+          expect(subject).to receive(:update_object_from_payload).with({'id' => 12}).once
 
-        it 'raises an error when no client is setup' do
-          allow(Clubhouse).to receive(:default_client).and_return(nil)
-          expect{ subject.save! }.to raise_error ClientNotSetup, "A default client or instance client is not setup"
-        end
-
-        context 'when id exists' do
-          let(:body) { {name: 'Label Test'} }
-
-          it 'calls put on client with update_attributes' do
-            allow(subject).to receive(:id).and_return('123-123')
-            expect(client).to receive(:put).with('labels/123-123', body).and_return({ 'name' => 'Rewrite'}).once
-            expect(subject).to receive(:update_object_from_payload).with({'name' => 'Rewrite'}).once
-
-
-            subject.save!
-          end
-        end
-
-        context 'when id doesnt exist' do
-          let(:body) { {name: 'Label Test'} }
-
-          it 'calls post on client with create_attributes' do
-            allow(subject).to receive(:id).and_return(nil)
-            expect(client).to receive(:post).with('labels', body).and_return({'id' => 12}).once
-            expect(subject).to receive(:update_object_from_payload).with({'id' => 12}).once
-
-            subject.save!
-          end
+          subject.save
         end
       end
     end

@@ -83,12 +83,12 @@ module Clubhouse
       self
     end
 
-    def refresh!
-      payload = self.class.find(id)
+    def reload
+      payload = client.get("#{self.class.endpoint}/#{id}")
       update_object_from_payload(payload)
     end
 
-    def save!
+    def save
       raise ClientNotSetup, "A default client or instance client is not setup" unless client
 
       payload = if id
