@@ -22,6 +22,11 @@ module WebmocksHelper
     stub_request(:get, url_for("#{resource}/#{id}")).and_return({status: 200, body: body})
   end
 
+  def stub_all_resource_with(resource, response_body)
+    body = File.read(fixture_path("#{response_body}.json"))
+    stub_request(:get, url_for(resource)).and_return({status: 200, body: body})
+  end
+
   def stub_error_response_for(verb, path, resp)
     stub_request(verb, url_for(path)).and_return(status: 400, body: resp)
   end

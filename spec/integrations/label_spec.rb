@@ -68,5 +68,18 @@ module Clubhouse
         expect(label.name).to eq new_name
       end
     end
+
+    describe '.all' do
+      let(:labels) { Label.all }
+
+      before { stub_all_resource_with(:labels, :all_labels) }
+
+      it 'returns all labels as and array of Labels' do
+        expect(labels.map(&:class).uniq).to eq [Clubhouse::Label]
+        expect(labels.size).to eq 3
+        expect(labels[1].id).to eq 124
+        expect(labels[1].name).to eq 'Medium'
+      end
+    end
   end
 end

@@ -23,6 +23,11 @@ module Clubhouse
       def delete(id)
         client.delete("#{self.endpoint}/#{id}")
       end
+
+      def all
+        payload = client.get(self.endpoint)
+        payload.collect{|h| self.new.update_object_from_payload(h) }
+      end
     end
 
     def initialize(attr = {})

@@ -1,0 +1,29 @@
+[
+  {
+    "num_stories_in_progress": 23,
+    "num_stories_total": 123,
+    "created_at": "2016-09-31T12:30:00Z",
+    "updated_at": "2016-09-31T12:30:00Z",
+    "name": "Low",
+    "num_stories_completed": 100,
+    "id": 123
+  },
+  {
+    "num_stories_in_progress": 13,
+    "num_stories_total": 103,
+    "created_at": "2016-09-31T12:30:00Z",
+    "updated_at": "2016-09-31T12:30:00Z",
+    "name": "Medium",
+    "num_stories_completed": 90,
+    "id": 124
+  },
+  {
+    "num_stories_in_progress": 12,
+    "num_stories_total": 23,
+    "created_at": "2016-09-31T12:30:00Z",
+    "updated_at": "2016-09-31T12:30:00Z",
+    "name": "High",
+    "num_stories_completed": 11,
+    "id": 125
+  }
+]
