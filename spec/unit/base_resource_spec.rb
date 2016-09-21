@@ -153,6 +153,17 @@ module Clubhouse
       end
     end
 
+    describe '.all' do
+      let(:client) { Client.new('tok123') }
+
+      before { allow(Clubhouse).to receive(:default_client).and_return(client) }
+
+      it 'calls get with the resource endpoint' do
+        expect(client).to receive(:get).with('labels').and_return(true).once
+        LabelTest.all
+      end
+    end
+
     describe '#reload' do
       let(:client) { Client.new('tok123') }
       let(:payload) { { 'name' => 'Rewrite'} }
