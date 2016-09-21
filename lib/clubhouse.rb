@@ -8,6 +8,7 @@ require 'clubhouse/client'
 require 'clubhouse/base_resource'
 
 require 'clubhouse/story'
+require 'clubhouse/label'
 
 module Clubhouse
 

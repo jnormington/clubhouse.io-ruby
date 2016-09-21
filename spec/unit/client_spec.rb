@@ -112,11 +112,21 @@ module Clubhouse
         end
       end
 
+      it "raises an UnprocessableError" do
+        allow(response).to receive(:code).and_return('422')
+        expect{ subject.raise_error_to_user(response) }.to raise_error UnprocessableError
+      end
+
       (500..503).each do |code|
         it "raises an UnexpectedError for #{code}" do
           allow(response).to receive(:code).and_return(code.to_s)
           expect{ subject.raise_error_to_user(response) }.to raise_error UnexpectedError
         end
+      end
+
+      it "raises an UnexpectedError for an unexpected code" do
+        allow(response).to receive(:code).and_return('418')
+        expect{ subject.raise_error_to_user(response) }.to raise_error UnexpectedError
       end
     end
   end

@@ -39,9 +39,9 @@ module Clubhouse
       readonly = Array(opts[:readonly])
 
       class_eval do
-        define_method(:attribute_keys) { keys }
+        define_method(:attribute_keys) { (keys + readonly) }
 
-        keys.each do |key|
+        (keys + readonly).each do |key|
           define_method(:"#{key}")  { instance_variable_get("@#{key}") }
 
           if !readonly.include?(key)
