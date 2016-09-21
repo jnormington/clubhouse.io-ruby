@@ -3,7 +3,7 @@ require 'spec_helper'
 class LabelTest < Clubhouse::BaseResource
   resource 'labels'
 
-  attributes :id, :name, :project_id, :story_id, :updated_at, readonly: :id
+  attributes :name, :project_id, :story_id, readonly: [:id, :updated_at]
   attributes_for_update :name, :updated_at
   attributes_for_create :name, :project_id
 end
@@ -57,7 +57,7 @@ module Clubhouse
 
     describe '#attributes_keys' do
       it 'returns the keys from registered_attributes' do
-        expect(subject.attribute_keys).to eq([:id, :name, :project_id, :story_id, :updated_at])
+        expect(subject.attribute_keys).to eq([:name, :project_id, :story_id, :id, :updated_at])
       end
     end
 
