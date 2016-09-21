@@ -3,6 +3,7 @@ module Clubhouse
   class UnauthorizedError < StandardError; end
   class ResourceNotFoundError < StandardError; end
   class UnexpectedError < StandardError; end
+  class UnprocessableError < StandardError; end
 
   class Client
     include APIActions
@@ -50,7 +51,8 @@ module Clubhouse
         when 400 then BadRequestError
         when 401, 403 then UnauthorizedError
         when 404 then ResourceNotFoundError
-        when 500..503 then UnexpectedError
+        when 422 then UnprocessableError
+        else UnexpectedError
       end
 
       raise err, response.body
