@@ -87,5 +87,11 @@ module Clubhouse
         expect(story.story_type).to eq 'bug'
       end
     end
+
+    describe '.all' do
+      it 'raises an exception' do
+        expect{ Story.all }.to raise_error NotImplementedError, 'Use Story.search(..) to return stories matching your search query'
+      end
+    end
   end
 end

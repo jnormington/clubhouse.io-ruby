@@ -25,7 +25,8 @@ module Clubhouse
       end
 
       def all
-        client.get(self.endpoint)
+        payload = client.get(self.endpoint)
+        payload.collect{|h| self.new.update_object_from_payload(h) }
       end
     end
 

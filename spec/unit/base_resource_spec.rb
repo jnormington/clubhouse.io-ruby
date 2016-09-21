@@ -159,8 +159,10 @@ module Clubhouse
       before { allow(Clubhouse).to receive(:default_client).and_return(client) }
 
       it 'calls get with the resource endpoint' do
-        expect(client).to receive(:get).with('labels').and_return(true).once
-        LabelTest.all
+        expect(client).to receive(:get).with('labels').and_return([{'id' => 1},{'id' => 2}]).once
+        labels = LabelTest.all
+        expect(labels.first.class).to eq LabelTest
+        expect(labels.first.id).to eq 1
       end
     end
 
