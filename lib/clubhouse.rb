@@ -9,6 +9,8 @@ require 'clubhouse/base_resource'
 
 require 'clubhouse/story'
 require 'clubhouse/label'
+require 'clubhouse/user'
+require 'clubhouse/permission'
 
 module Clubhouse
 
