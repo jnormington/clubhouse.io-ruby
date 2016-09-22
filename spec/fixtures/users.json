@@ -1,0 +1,40 @@
+[
+    {
+        "deactivated": true,
+        "id": "12345678-9012-3456-7890-123456789012",
+        "name": "Jon N",
+        "permissions": [
+            {
+                "created_at": "2016-09-31T12:30:00Z",
+                "disabled": true,
+                "email_address": "foo@example.com",
+                "gravatar_hash": "",
+                "id": "12345678-9012-3456-7890-123456789012",
+                "initials": "JN",
+                "role": "admin",
+                "updated_at": "2016-09-31T12:30:00Z"
+            }
+        ],
+        "two_factor_auth_activated": true,
+        "username": "jondemo"
+    },
+    {
+        "deactivated": true,
+        "id": "02345678-9012-6789-0123-123456789012",
+        "name": "Mia N",
+        "permissions": [
+            {
+                "created_at": "2016-09-31T12:30:00Z",
+                "disabled": true,
+                "email_address": "mia@example.com",
+                "gravatar_hash": "",
+                "id": "02345678-9012-6789-0123-123456789012",
+                "initials": "MN",
+                "role": "admin",
+                "updated_at": "2016-09-31T12:30:00Z"
+            }
+        ],
+        "two_factor_auth_activated": true,
+        "username": "miademo"
+    }
+]
