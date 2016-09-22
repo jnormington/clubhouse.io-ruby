@@ -1,0 +1,46 @@
+[
+    {
+        "created_at": "2016-08-31T22:44:45Z",
+        "default_state_id": 500000011,
+        "id": 500000009,
+        "states": [
+            {
+                "color": "",
+                "created_at": "2016-08-31T22:44:45Z",
+                "description": "",
+                "id": 500000011,
+                "name": "Ready for Development",
+                "num_stories": 9,
+                "position": 0,
+                "type": "unstarted",
+                "updated_at": "2016-08-31T22:44:45Z",
+                "verb": null
+            },
+            {
+                "color": "blue",
+                "created_at": "2016-08-31T22:44:45Z",
+                "description": "",
+                "id": 500000015,
+                "name": "In Development",
+                "num_stories": 12,
+                "position": 1,
+                "type": "started",
+                "updated_at": "2016-08-31T22:44:45Z",
+                "verb": "start"
+            },
+            {
+                "color": "",
+                "created_at": "2016-08-31T22:44:45Z",
+                "description": "",
+                "id": 500000012,
+                "name": "Completed",
+                "num_stories": 231,
+                "position": 2,
+                "type": "done",
+                "updated_at": "2016-08-31T22:44:45Z",
+                "verb": null
+            }
+        ],
+        "updated_at": "2016-08-31T22:51:01Z"
+    }
+]
