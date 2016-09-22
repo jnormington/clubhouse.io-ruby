@@ -11,6 +11,7 @@ require 'clubhouse/story'
 require 'clubhouse/label'
 require 'clubhouse/user'
 require 'clubhouse/permission'
+require 'clubhouse/workflow'
 
 module Clubhouse
 
