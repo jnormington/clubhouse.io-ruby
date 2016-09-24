@@ -14,8 +14,10 @@ require 'clubhouse/permission'
 require 'clubhouse/workflow'
 require 'clubhouse/project'
 require 'clubhouse/epic'
+require 'clubhouse/file'
 
 module Clubhouse
+  class NotSupportedByAPIError < StandardError; end
 
   class << self
     attr_accessor :default_client

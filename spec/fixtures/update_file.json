@@ -1,0 +1,16 @@
+{
+  "uploader_id": "12345678-9012-3456-7890-123456789012",
+  "name": "ChoreDisplaysAsStory",
+  "thumbnail_url": "http://example.com/images/chore_saved_as_bug.jpg",
+  "mention_ids": ["12345678-9012-3456-7890-123456789012"],
+  "description": "",
+  "size": 2,
+  "created_at": "2016-08-31T12:30:00Z",
+  "story_ids": [1,2,3,22],
+  "content_type": "image/jpg",
+  "filename": "chore_saved_as_bug.jpg",
+  "updated_at": "2016-09-21T22:10:00Z",
+  "url": "https://s3.example.com/124/chore_saved_as_bug.jpg",
+  "id": 124
+}
+
