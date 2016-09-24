@@ -1,0 +1,22 @@
+{
+    "content_type": "image/jpg",
+    "created_at": "2016-08-31T12:30:00Z",
+    "description": "",
+    "filename": "chore_saved_as_bug.jpg",
+    "id": 124,
+    "mention_ids": [
+        "12345678-9012-3456-7890-123456789012"
+    ],
+    "name": "Chore saved as a bug",
+    "size": 2,
+    "story_ids": [
+        1,
+        2,
+        3,
+        22
+    ],
+    "thumbnail_url": "",
+    "updated_at": "2016-08-31T12:30:00Z",
+    "uploader_id": "12345678-9012-3456-7890-123456789012",
+    "url": "https://s3.example.com/124/chore_saved_as_bug.jpg"
+}
