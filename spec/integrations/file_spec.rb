@@ -45,6 +45,7 @@ module Clubhouse
         expect(file.size).to eq 2
         expect(file.story_ids).to eq [1,2,3,22]
         expect(file.content_type).to eq 'image/jpg'
+        expect(file.uploader_id).to eq '12345678-9012-3456-7890-123456789012'
         expect(file.updated_at).to eq '2016-08-31T12:30:00Z'
 
         stub_get_resource_with(:files, 124, :update_file)
