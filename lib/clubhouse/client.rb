@@ -72,6 +72,8 @@ module Clubhouse
       response = http.request(request)
 
       if [200,201,204].include?(response.code.to_i)
+        # Clubhouse API returns content type as application/json for DELETE request with no body :(
+        return {} if response.body.nil?
         JSON.parse(response.body)
       else
         raise_error_to_user(response)

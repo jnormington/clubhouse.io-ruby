@@ -51,10 +51,21 @@ module Clubhouse
     describe '#delete' do
       let(:uri) { URI.parse(subject.basepath + "/labels/1?token=toke%261234") }
       let(:req) { Net::HTTP::Delete.new(uri) }
+      let(:response) { Net::HTTPResponse.new('delete', '200', '') }
 
       it 'builds and makes request' do
         expect(Net::HTTP::Delete).to receive(:new).with(uri).and_return(req)
         expect(subject).to receive(:do_request).with(req).once
+
+        subject.delete('labels/1')
+      end
+
+      it 'successfully returns when response body is nil' do
+        # The delete request for clubhouse has no body which previously broke JSON.parse
+        allow(response).to receive(:body).and_return(nil)
+
+        expect(Net::HTTP::Delete).to receive(:new).with(uri).and_return(req)
+        expect_any_instance_of(Net::HTTP).to receive(:request).and_return(response)
 
         subject.delete('labels/1')
       end
