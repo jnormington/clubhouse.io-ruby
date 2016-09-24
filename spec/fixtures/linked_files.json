@@ -1,0 +1,32 @@
+[
+    {
+        "content_type": "",
+        "created_at": "2016-09-07T22:20:07Z",
+        "description": "",
+        "id": 375,
+        "mention_ids": [],
+        "name": "attachement 0",
+        "size": 0,
+        "story_ids": [],
+        "thumbnail_url": null,
+        "type": "url",
+        "updated_at": "2016-09-07T22:20:07Z",
+        "uploader_id": "57c75ddd-ad27-4531-8c7d-368d8702cc0d",
+        "url": "https://example.com/0_ScreenShot.png"
+    },
+    {
+        "content_type": "image/png",
+        "created_at": "2016-09-07T22:20:07Z",
+        "description": "",
+        "id": 374,
+        "mention_ids": [],
+        "name": "attachement 1",
+        "size": 22,
+        "story_ids": [],
+        "thumbnail_url": null,
+        "type": "url",
+        "updated_at": "2016-09-07T22:20:07Z",
+        "uploader_id": "57c75ddd-ad27-4531-8c7d-368d8702cc0d",
+        "url": "https://example.com/1_ScreenShot.png"
+    }
+]

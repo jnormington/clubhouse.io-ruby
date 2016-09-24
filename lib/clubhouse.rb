@@ -14,6 +14,7 @@ require 'clubhouse/workflow'
 require 'clubhouse/project'
 require 'clubhouse/epic'
 require 'clubhouse/file'
+require 'clubhouse/linked_file'
 
 module Clubhouse
   class NotSupportedByAPIError < StandardError; end
