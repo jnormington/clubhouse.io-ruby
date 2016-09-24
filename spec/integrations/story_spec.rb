@@ -94,5 +94,21 @@ module Clubhouse
           'Use Story.search(..) to return stories matching your search query'
       end
     end
+
+    describe '.search' do
+      let(:search) {{ project_id: 17, story_type: :bug }}
+      let(:stories) { Story.search(search) }
+      let(:story) { stories[1] }
+
+      before { stub_create_resource_with("stories/search", search.to_json, :stories) }
+
+      it 'returns an array or story' do
+        expect(stories.size).to eq 3
+        expect(story.id).to eq 678
+        expect(story.story_type).to eq 'bug'
+        expect(story.project_id).to eq  17
+        expect(story.name).to eq 'Card created just now'
+      end
+    end
   end
 end
