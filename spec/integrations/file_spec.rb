@@ -17,7 +17,8 @@ module Clubhouse
         {
           description: "Desc",
           name: "ChoreDisplaysAsStory",
-          updated_at: '2016-09-11T12:30:00Z'
+          updated_at: '2016-09-11T12:30:00Z',
+          uploader_id: "12345678-9012-3456-7890-123456789012"
         }
       end
 
