@@ -16,9 +16,17 @@ module Clubhouse
                           :estimate, :file_ids, :follower_ids, :labels, :linked_file_ids, :name,
                           :owner_ids, :project_id, :requested_by_id, :story_type, :workflow_state_id
 
-    def self.all
-      raise NotSupportedByAPIError,
-        'Use Story.search(..) to return stories matching your search query'
+
+    class << self
+      def all
+        raise NotSupportedByAPIError,
+          'Use Story.search(..) to return stories matching your search query'
+      end
+
+      def search(attr = {})
+        payload = client.post("#{endpoint}/search", attr)
+        payload.collect {|s| new.update_object_from_payload(s) }
+      end
     end
   end
 end

@@ -57,7 +57,7 @@
         "project_id": 17,
         "requested_by_id": "57c75ddd-ad27-4531-8c7d-368d8702cc0d",
         "story_links": [],
-        "story_type": "feature",
+        "story_type": "bug",
         "tasks": [],
         "updated_at": "2016-09-13T17:49:50Z",
         "workflow_state_id": 500000012
