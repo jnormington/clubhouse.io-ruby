@@ -7,14 +7,14 @@ module Clubhouse
 
     describe '#save' do
       it 'raises an exception' do
-        expect{ subject.save }.to raise_error NotImplementedError,
+        expect{ subject.save }.to raise_error NotSupportedByAPIError,
           "You can't create users over the API, please use clubhouse web"
       end
     end
 
     describe '#delete' do
       it 'raises an exception' do
-        expect{ User.delete("1234-1234-1234") }.to raise_error NotImplementedError,
+        expect{ User.delete("1234-1234-1234") }.to raise_error NotSupportedByAPIError,
           "You can't delete users over the API, please use clubhouse web"
       end
     end

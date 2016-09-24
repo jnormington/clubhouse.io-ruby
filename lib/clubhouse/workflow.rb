@@ -8,15 +8,18 @@ module Clubhouse
                         :num_stories, :position, :type, :updated_at, :verb)
 
     def save
-      raise NotImplementedError, "You can't manage workflows over the API, please use clubhouse web"
+      raise NotSupportedByAPIError,
+        "You can't manage workflows over the API, please use clubhouse web"
     end
 
     def self.delete(id = nil)
-      raise NotImplementedError, "You can't delete workflows over the API, please use clubhouse web"
+      raise NotSupportedByAPIError,
+        "You can't delete workflows over the API, please use clubhouse web"
     end
 
     def self.find(id = nil)
-      raise NotImplementedError, "You can only list all workflows, please use Clubhouse::Workflow.all"
+      raise NotSupportedByAPIError,
+        "You can only list all workflows, please use Clubhouse::Workflow.all"
     end
 
     def states

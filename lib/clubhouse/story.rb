@@ -17,7 +17,8 @@ module Clubhouse
                           :owner_ids, :project_id, :requested_by_id, :story_type, :workflow_state_id
 
     def self.all
-      raise NotImplementedError, 'Use Story.search(..) to return stories matching your search query'
+      raise NotSupportedByAPIError,
+        'Use Story.search(..) to return stories matching your search query'
     end
   end
 end
