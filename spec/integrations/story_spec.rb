@@ -90,7 +90,8 @@ module Clubhouse
 
     describe '.all' do
       it 'raises an exception' do
-        expect{ Story.all }.to raise_error NotImplementedError, 'Use Story.search(..) to return stories matching your search query'
+        expect{ Story.all }.to raise_error NotSupportedByAPIError,
+          'Use Story.search(..) to return stories matching your search query'
       end
     end
   end

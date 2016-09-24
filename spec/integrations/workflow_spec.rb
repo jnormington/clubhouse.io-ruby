@@ -7,21 +7,21 @@ module Clubhouse
 
     describe '#save' do
       it 'raises an exception' do
-        expect{ subject.save }.to raise_error NotImplementedError,
+        expect{ subject.save }.to raise_error NotSupportedByAPIError,
           "You can't manage workflows over the API, please use clubhouse web"
       end
     end
 
     describe '#delete' do
       it 'raises an exception' do
-        expect{ Workflow.delete("1234-1234-1234") }.to raise_error NotImplementedError,
+        expect{ Workflow.delete("1234-1234-1234") }.to raise_error NotSupportedByAPIError,
           "You can't delete workflows over the API, please use clubhouse web"
       end
     end
 
     describe '.find' do
       it 'raises an exception' do
-        expect{ Workflow.find("1234-1234-1234") }.to raise_error NotImplementedError,
+        expect{ Workflow.find("1234-1234-1234") }.to raise_error NotSupportedByAPIError,
           "You can only list all workflows, please use Clubhouse::Workflow.all"
       end
     end

@@ -7,11 +7,11 @@ module Clubhouse
 
 
     def save
-      raise NotImplementedError, "You can't create users over the API, please use clubhouse web"
+      raise NotSupportedByAPIError, "You can't create users over the API, please use clubhouse web"
     end
 
     def self.delete(id = nil)
-      raise NotImplementedError, "You can't delete users over the API, please use clubhouse web"
+      raise NotSupportedByAPIError, "You can't delete users over the API, please use clubhouse web"
     end
 
     def permissions
