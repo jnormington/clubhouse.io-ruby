@@ -13,6 +13,7 @@ require 'clubhouse/user'
 require 'clubhouse/permission'
 require 'clubhouse/workflow'
 require 'clubhouse/project'
+require 'clubhouse/epic'
 
 module Clubhouse
 
