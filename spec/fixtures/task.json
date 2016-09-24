@@ -1,0 +1,16 @@
+{
+    "complete": false,
+    "completed_at": null,
+    "created_at": "2016-08-31T23:30:00Z",
+    "description": "Thee task!",
+    "id": 11,
+    "mention_ids": [
+        "12345678-9012-3456-7890-123456789012"
+    ],
+    "owner_ids": [
+        "12345678-9012-3456-7890-123456789012"
+    ],
+    "position": 123,
+    "story_id": 694,
+    "updated_at": "2016-08-31T23:30:00Z"
+}

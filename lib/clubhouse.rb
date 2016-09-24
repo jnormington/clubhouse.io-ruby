@@ -15,6 +15,7 @@ require 'clubhouse/project'
 require 'clubhouse/epic'
 require 'clubhouse/file'
 require 'clubhouse/linked_file'
+require 'clubhouse/task'
 
 module Clubhouse
   class NotSupportedByAPIError < StandardError; end

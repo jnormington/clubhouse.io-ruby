@@ -27,6 +27,10 @@ module WebmocksHelper
     stub_request(:get, url_for(resource)).and_return({status: 200, body: body})
   end
 
+  def stub_delete_resource_with(resource)
+    stub_request(:delete, url_for(resource)).and_return({status: 200, body: nil})
+  end
+
   def stub_error_response_for(verb, path, resp)
     stub_request(verb, url_for(path)).and_return(status: 400, body: resp)
   end
