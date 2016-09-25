@@ -25,6 +25,22 @@ module Clubhouse
       @_tasks ||= Array(@tasks).collect {|t| Task.new.update_object_from_payload(t) }
     end
 
+    def add_comment(text)
+      add_resource(:comment) do
+        comment = Comment.new(text: text, story_id: id)
+        comment.save
+        comments << comment
+      end
+    end
+
+    def add_task(desc)
+      add_resource(:task) do
+        task = Task.new(description: desc, story_id: id)
+        task.save
+        tasks << task
+      end
+    end
+
     def update_object_from_payload(attr = {})
       super
       instance_variable_set("@_comments", nil)
@@ -42,6 +58,13 @@ module Clubhouse
         payload = client.post("#{endpoint}/search", attr)
         payload.collect {|s| new.update_object_from_payload(s) }
       end
+    end
+
+    private
+
+    def add_resource(type)
+      raise StoryNotSavedError, "Please save the story to use the add #{type} method" unless id
+      yield
     end
   end
 end

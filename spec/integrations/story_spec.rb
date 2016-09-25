@@ -165,5 +165,61 @@ module Clubhouse
         end
       end
     end
+
+    describe 'adding a comment' do
+      context 'when the story has not been saved' do
+        subject { Story.new }
+
+        it 'raises an exception' do
+          expect{ subject.add_comment('My Comment!') }.to raise_error StoryNotSavedError,
+            "Please save the story to use the add comment method"
+        end
+      end
+
+      context 'when the story is already saved' do
+        subject { Story.find(694) }
+
+        before do
+          stub_get_resource_with(:stories, 694, :story)
+          stub_create_resource_with("stories/694/comments", '{"text":"My comment!"}', :comment)
+        end
+
+        it 'creates comments and appends to the current comments' do
+          expect(subject.comments.size).to eq 2
+
+          subject.add_comment('My comment!')
+          expect(subject.comments.size).to eq 3
+          expect(subject.comments.last.text).to eq 'My comment!'
+        end
+      end
+    end
+
+    describe 'adding a task' do
+      context 'when the story has not been saved' do
+        subject { Story.new }
+
+        it 'raises an exception' do
+          expect{ subject.add_task('Thee task!') }.to raise_error StoryNotSavedError,
+            "Please save the story to use the add task method"
+        end
+      end
+
+      context 'when the story is already saved' do
+        subject { Story.find(694) }
+
+        before do
+          stub_get_resource_with(:stories, 694, :story)
+          stub_create_resource_with("stories/694/tasks", '{"description":"Thee task!"}', :task)
+        end
+
+        it 'creates comments and appends to the current comments' do
+          expect(subject.tasks.size).to eq 2
+
+          subject.add_task('Thee task!')
+          expect(subject.tasks.size).to eq 3
+          expect(subject.tasks.last.description).to eq 'Thee task!'
+        end
+      end
+    end
   end
 end
