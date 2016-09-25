@@ -16,9 +16,11 @@ require 'clubhouse/epic'
 require 'clubhouse/file'
 require 'clubhouse/linked_file'
 require 'clubhouse/task'
+require 'clubhouse/comment'
 
 module Clubhouse
   class NotSupportedByAPIError < StandardError; end
+  class MissingStoryIDError < StandardError; end
 
   class << self
     attr_accessor :default_client

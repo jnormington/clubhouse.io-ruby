@@ -80,16 +80,16 @@ module Clubhouse
       end
     end
 
-    describe 'reload' do
-      let(:task) { Task.find(11) }
+    describe 'find and reload' do
+      let(:task) { Task.find(694, 11) }
 
-      before { stub_get_resource_with(:tasks, 11, :task) }
+      before { stub_get_resource_with(endpoint, 11, :task) }
 
       it 'reloads the task object' do
         expect(task.complete).to be_falsy
         expect(task.completed_at).to be_nil
 
-        stub_get_resource_with(:tasks, 11, :update_task)
+        stub_get_resource_with(endpoint, 11, :update_task)
         task.reload
 
         expect(task.complete).to be_truthy

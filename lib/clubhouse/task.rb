@@ -1,6 +1,4 @@
 module Clubhouse
-  class MissingStoryIDError < StandardError; end
-
   class Task < BaseResource
     resource :tasks
 
@@ -24,12 +22,24 @@ module Clubhouse
       update_object_from_payload(payload)
     end
 
-    def self.delete(story_id, task_id)
-      client.delete("stories/#{story_id}/tasks/#{task_id}")
+    def reload
+      payload = client.get("stories/#{story_id}/#{self.class.endpoint}/#{id}")
+      update_object_from_payload(payload)
     end
 
-    def self.all
-      raise NotSupportedByAPIError, "You can get all tasks associated directly from the story model"
+    class << self
+      def find(story_id, task_id)
+        payload = client.get("stories/#{story_id}/#{endpoint}/#{task_id}")
+        new.update_object_from_payload(payload)
+      end
+
+      def delete(story_id, task_id)
+        client.delete("stories/#{story_id}/tasks/#{task_id}")
+      end
+
+      def all
+        raise NotSupportedByAPIError, "You can get all tasks associated directly from the story model"
+      end
     end
   end
 end
