@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Jon Normington"]
   spec.email         = ["jnormington@users.noreply.github.com"]
 
-  spec.summary       = %q{Clubhouse.io ruby gem for api interaction}
-  spec.description   = spec.summary
+  spec.summary       = %q{Clubhouse.io ruby gem for the API}
+  spec.description   = "A basic ruby gem for interacting with the Clubhouse.io API"
   spec.homepage      = "https://github.com/jnormington/clubhouse.io-ruby"
   spec.license       = "MIT"
 
