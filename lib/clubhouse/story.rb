@@ -17,6 +17,21 @@ module Clubhouse
                           :owner_ids, :project_id, :requested_by_id, :story_type, :workflow_state_id
 
 
+    def comments
+      @_comments ||= Array(@comments).collect {|c| Comment.new.update_object_from_payload(c) }
+    end
+
+    def tasks
+      @_tasks ||= Array(@tasks).collect {|t| Task.new.update_object_from_payload(t) }
+    end
+
+    def update_object_from_payload(attr = {})
+      super
+      instance_variable_set("@_comments", nil)
+      instance_variable_set("@_tasks", nil)
+      self
+    end
+
     class << self
       def all
         raise NotSupportedByAPIError,
