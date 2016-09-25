@@ -22,6 +22,7 @@ require 'clubhouse/story_link'
 module Clubhouse
   class NotSupportedByAPIError < StandardError; end
   class MissingStoryIDError < StandardError; end
+  class StoryNotSavedError < StandardError; end
 
   class << self
     attr_accessor :default_client
