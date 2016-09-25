@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/jnormington/clubhouse.io-ruby.svg?style=svg)](https://circleci.com/gh/jnormington/clubhouse.io-ruby)
+
 # Clubhouse
 
 ## This is work in progress ! You are welcome to contribute but let me know so that we don't duplicate.
