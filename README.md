@@ -2,14 +2,18 @@
 
 # Clubhouse
 
-## This is work in progress ! You are welcome to contribute but let me know so that we don't duplicate.
+This gem provides a basic representation of the Clubhouse.io API.
+
+If you don't know what [Clubhouse](https://clubhouse.io) is, I recommend you check it out, its an awesome project management system in its early days and can only get better.
+
+Their API documentation is at the following address [https://clubhouse.io/api/v1/](https://clubhouse.io/api/v1/) as you will need it for reference.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'clubhouse'
+gem 'clubhouse.io-ruby'
 ```
 
 And then execute:
@@ -18,24 +22,49 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install clubhouse
+    $ gem install clubhouse.io-ruby
 
 ## Usage
 
-TODO: Write usage instructions here
+### Setting up a client
 
-## Development
+Before we start its best to setup a default client if you are just using it with only one token.
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+You can generate a token for clubhouse by going to the account section and generating a new token
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```ruby
+Clubhouse.default_client = Clubhouse::Client.new('YOUR_TOKEN_HERE')
+```
+
+Now we are ready to start creating stories. In its basic form this is how you create a story
+
+This will create a new story in the first project that is returned from the API in the all projects request.
+
+```ruby
+story = Clubhouse::Story.new(name:'My Story', project_id: Clubhouse::Project.all.first.id)
+story.save
+```
+
+You can check out all the other docs on other resources with examples [here](doc)
+
+* [Epics](docs/epics.md)
+* [Files](docs/files.md)
+* [Labels](docs/labels.md)
+* [Linked-Files](docs/linked_files.md)
+* [Projects](docs/projects.md)
+* [Story-Links](docs/story_links.md)
+* [Stories](docs/stories.md)
+  * [Comments](docs/comments.md)
+  * [Tasks](docs/tasks.md)
+* [Users](docs/users.md)
+* [Workflows](docs/workflows.md)
+
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/clubhouse.
+Bug reports and/or pull requests are welcome
 
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
+The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT)
