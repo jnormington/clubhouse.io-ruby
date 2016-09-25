@@ -17,6 +17,7 @@ require 'clubhouse/file'
 require 'clubhouse/linked_file'
 require 'clubhouse/task'
 require 'clubhouse/comment'
+require 'clubhouse/story_link'
 
 module Clubhouse
   class NotSupportedByAPIError < StandardError; end
