@@ -1,11 +1,11 @@
 module Clubhouse
   RSpec.describe 'Story actions', type: :integration do
-    let(:basic_story) {{ name: 'Its a bug', project_id: 18 }}
+    let(:story_attr) {{ name: 'Its a bug', project_id: 18 }}
 
     describe 'creating' do
-      let(:story) {  Story.new(basic_story) }
+      let(:story) {  Story.new(story_attr) }
 
-      before { stub_create_resource_with(:stories, basic_story.to_json, :basic_story) }
+      before { stub_create_resource_with(:stories, story_attr.to_json, :story) }
 
       it 'saves and stores the attributes' do
         story.save
@@ -17,7 +17,7 @@ module Clubhouse
     end
 
     describe 'updating' do
-      let(:story) {  Story.new(basic_story) }
+      let(:story) {  Story.new(story_attr) }
       let(:request_body) do
         {
             "archived": false,
@@ -38,8 +38,8 @@ module Clubhouse
       end
 
       before do
-        stub_create_resource_with(:stories, basic_story.to_json, :basic_story)
-        stub_update_resource_with(:stories, 694, request_body.to_json.gsub('\n', ''), :update_basic_story)
+        stub_create_resource_with(:stories, story_attr.to_json, :story)
+        stub_update_resource_with(:stories, 694, request_body.to_json.gsub('\n', ''), :update_story)
       end
 
       it 'sends an update and updates the object' do
@@ -57,7 +57,7 @@ module Clubhouse
     end
 
     describe 'error' do
-      let(:story) {  Story.new(basic_story) }
+      let(:story) {  Story.new(story_attr) }
       let(:error) do
         {
           "errors": { "project_id": "required attribute" },
@@ -76,12 +76,12 @@ module Clubhouse
     describe 'reload' do
       let(:story) { Story.find(694) }
 
-      before { stub_get_resource_with(:stories, 694, :basic_story) }
+      before { stub_get_resource_with(:stories, 694, :story) }
 
       it 'reloads the story object' do
         expect(story.story_type).to eq 'feature'
 
-        stub_get_resource_with(:stories, 694, :update_basic_story)
+        stub_get_resource_with(:stories, 694, :update_story)
         story.reload
 
         expect(story.story_type).to eq 'bug'
@@ -108,6 +108,61 @@ module Clubhouse
         expect(story.story_type).to eq 'bug'
         expect(story.project_id).to eq  17
         expect(story.name).to eq 'Card created just now'
+      end
+    end
+
+    describe 'comments' do
+      let(:story) { Story.find(694) }
+      let(:comment) { story.comments.first }
+
+      before { stub_get_resource_with(:stories, 694, :story) }
+
+      it 'returns an array of comment objects' do
+        expect(story.comments.size).to eq 2
+        expect(comment.class).to eq Comment
+        expect(comment.text).to eq 'Comment One'
+        expect(comment.story_id).to eq 694
+      end
+
+      context 'object is reloaded' do
+        it 'refreshes the comments' do
+          # Cause it to store the call
+          story.comments
+
+          expect(story.comments.first.text).to eq 'Comment One'
+
+          stub_get_resource_with(:stories, 694, :update_story)
+          story.reload # This is also the same process for saving
+          expect(story.comments.first.text).to eq 'Comment changed'
+        end
+      end
+    end
+
+    describe 'tasks' do
+      let(:story) { Story.find(694) }
+      let(:task) { story.tasks.first }
+
+      before { stub_get_resource_with(:stories, 694, :story) }
+
+      it 'returns an array of tasks objects' do
+        expect(story.tasks.size).to eq 2
+        expect(task.class).to eq Task
+        expect(task.description).to eq 'Thee task!'
+        expect(task.complete).to be_falsey
+        expect(task.story_id).to eq 694
+      end
+
+      context 'object is reloaded' do
+        it 'refreshes the tasks' do
+          # Cause it to store the call
+          story.tasks
+
+          expect(story.tasks.first.description).to eq 'Thee task!'
+
+          stub_get_resource_with(:stories, 694, :update_story)
+          story.reload # This is also the same process for saving
+          expect(story.tasks.first.description).to eq 'The task at hand'
+        end
       end
     end
   end
