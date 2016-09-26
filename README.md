@@ -2,7 +2,7 @@
 
 # Clubhouse
 
-This gem provides a basic representation of the Clubhouse.io API.
+This gem is a client library for the Clubhouse v1 API
 
 If you don't know what [Clubhouse](https://clubhouse.io) is, I recommend you check it out, its an awesome project management system in its early days and can only get better.
 
@@ -45,7 +45,7 @@ story = Clubhouse::Story.new(name:'My Story', project_id: Clubhouse::Project.all
 story.save
 ```
 
-You can check out all the other docs on other resources with examples [here](doc)
+You can check out all the other docs on other resources with examples [here](docs)
 
 * [Epics](docs/epics.md)
 * [Files](docs/files.md)
