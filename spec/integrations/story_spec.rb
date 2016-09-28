@@ -84,6 +84,8 @@ module Clubhouse
         stub_get_resource_with(:stories, 694, :update_story)
         story.reload
 
+        expect(story.started_at).to eq '2016-09-14T23:40:00Z'
+        expect(story.completed_at).to eq '2016-09-15T21:32:55Z'
         expect(story.story_type).to eq 'bug'
       end
     end
