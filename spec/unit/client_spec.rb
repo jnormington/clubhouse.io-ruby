@@ -3,11 +3,11 @@ require 'spec_helper'
 module Clubhouse
   describe Client do
     subject { Client.new('toke&1234') }
-    let(:basepath) { 'https://api.clubhouse.io/api/v1' }
+    let(:basepath) { 'https://api.clubhouse.io/api/beta' }
 
     describe 'API_VERSION' do
       it 'returns stable api version' do
-        expect(Client::API_VERSION).to eq 'v1'
+        expect(Client::API_VERSION).to eq 'beta'
       end
     end
 
