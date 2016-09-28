@@ -1,5 +1,6 @@
 {
     "archived": false,
+    "completed_at": "2016-09-15T21:32:55Z",
     "comments": [
             {
                 "author_id": "57c75ddd-ad27-4531-8c7d-368d8702cc0d",
@@ -39,6 +40,7 @@
     "position": 2147024896,
     "project_id": 18,
     "requested_by_id": "22c22ddd-ad22-2222-2c2d-222d2222cc2d",
+    "started_at": "2016-09-14T23:40:00Z",
     "story_links": [],
     "story_type": "bug",
     "tasks": [

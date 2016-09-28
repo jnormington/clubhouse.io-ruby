@@ -8,7 +8,7 @@ module Clubhouse
   class Client
     include APIActions
 
-    API_VERSION='v1'.freeze
+    API_VERSION='beta'.freeze
 
     def initialize(token)
       @token = token

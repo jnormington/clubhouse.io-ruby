@@ -4,7 +4,7 @@ module WebmocksHelper
   end
 
   def url_for(path)
-    "https://api.clubhouse.io/api/v1/#{path}?token=11aa1a1c-11a1-1a1a-aaaa-1afa1111111a"
+    "https://api.clubhouse.io/api/beta/#{path}?token=11aa1a1c-11a1-1a1a-aaaa-1afa1111111a"
   end
 
   def stub_create_resource_with(resource, request_body, response_body)
